@@ -1,12 +1,62 @@
-import React from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const AddProduct = () => {
- return (
-  <div>
-   <h2>Add Product</h2>
-   {/* Your form or content for adding a new product goes here */}
-  </div>
- );
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+   
+    try {
+      const newProduct = { name, description, price };
+      console.log(newProduct);
+      await axios.post('https://outrageous-bonnet-ant.cyclic.app/', newProduct);
+      alert('Product added successfully!');
+      document.getElementById("myForm").reset();
+    } catch (err) {
+      console.error(err);
+      alert('Failed to add product.');
+    }
+  };
+
+  return (
+    <div className="d-flex justify-content-center align-items-center min-vh-100">
+      <div className="container p-5 rounded display flex-center ">
+        <h2 className="mb-4">Add Product</h2>
+        <form id='myForm' onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label className="form-label">Name:</label>
+            <input
+              type="text"
+              className="form-control"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Price:</label>
+            <input
+              type="number"
+              className="form-control"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Description:</label>
+            <textarea
+              className="form-control"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">Add Product</button>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default AddProduct;
