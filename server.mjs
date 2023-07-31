@@ -1,10 +1,11 @@
-import { express } from "express";
+import express from "express";
 import path from "path";
 
 
-
-const port = process.env.PORT || 3000;
+const __dirname = path.resolve();
 const app = express();
+const port = process.env.PORT || 3000;
+
 app.use(express.static (path.join(__dirname, "static")));
 
 app.get("/", (req, res) => {
