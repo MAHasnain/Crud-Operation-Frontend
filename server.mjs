@@ -1,14 +1,13 @@
 import express from "express";
 import path from "path";
 
-
 const __dirname = path.resolve();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.static (path.join(__dirname, "static")));
+app.use(express.json (path.join(__dirname, "public")));
 
-app.get("/", (req, res) => {
+app.get("/app", (req, res) => {
   res.send ("Crud APP!");
 })
 
